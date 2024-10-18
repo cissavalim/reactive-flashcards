@@ -2,6 +2,8 @@ package br.com.dio.reactiveflashcards.api.exceptionhandler;
 
 import br.com.dio.reactiveflashcards.api.controller.response.ProblemResponse;
 import br.com.dio.reactiveflashcards.domain.exception.BaseErrorMessage;
+import br.com.dio.reactiveflashcards.domain.exception.ReactiveFlashcardsException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
@@ -24,16 +27,36 @@ public class ApiExceptionHandler implements WebExceptionHandler {
 
     @Override
     public Mono<Void> handle(final ServerWebExchange exchange, final Throwable ex) {
+        log.error("exception={}", ex.getMessage(), ex);
+
         return Mono.error(ex)
-                .onErrorResume(Exception.class, e -> handleException(exchange, e))
+                .onErrorResume(MethodNotAllowedException.class, e -> handleMethodNotAllowedException(exchange))
+                .onErrorResume(ReactiveFlashcardsException.class, e -> handleReactiveFlashcardsException(exchange))
+                .onErrorResume(Exception.class, e -> handleException(exchange))
+                .onErrorResume(JsonProcessingException.class, e -> handleJsonProcessingException(exchange))
                 .then();
     }
 
-    private Mono<Void> handleException(final ServerWebExchange exchange, final Exception ex) {
-        prepareExchange(exchange, HttpStatus.INTERNAL_SERVER_ERROR);
+    private Mono<Void> handleMethodNotAllowedException(final ServerWebExchange exchange) {
+        return handleError(BaseErrorMessage.GENERIC_METHOD_NOT_ALLOWED, HttpStatus.METHOD_NOT_ALLOWED, exchange);
+    }
 
-        return Mono.fromCallable(BaseErrorMessage.GENERIC_EXCEPTION::getMessage)
-                .map(message -> buildError(HttpStatus.INTERNAL_SERVER_ERROR, message))
+    private Mono<Void> handleReactiveFlashcardsException(final ServerWebExchange exchange) {
+        return handleError(BaseErrorMessage.GENERIC_EXCEPTION, HttpStatus.INTERNAL_SERVER_ERROR, exchange);
+    }
+
+    private Mono<Void> handleException(final ServerWebExchange exchange) {
+        return handleError(BaseErrorMessage.GENERIC_EXCEPTION, HttpStatus.INTERNAL_SERVER_ERROR, exchange);
+    }
+
+    private Mono<Void> handleJsonProcessingException(final ServerWebExchange exchange) {
+        return handleError(BaseErrorMessage.GENERIC_METHOD_NOT_ALLOWED, HttpStatus.METHOD_NOT_ALLOWED, exchange);
+    }
+
+    private Mono<Void> handleError(final BaseErrorMessage baseErrorMessage, final HttpStatus status, final ServerWebExchange exchange) {
+        prepareExchange(exchange, status);
+        return Mono.fromCallable(baseErrorMessage::getMessage)
+                .map(message -> buildError(status, message))
                 .flatMap(problemResponse -> writeResponse(exchange, problemResponse));
     }
 
@@ -42,10 +65,10 @@ public class ApiExceptionHandler implements WebExceptionHandler {
         exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
     }
 
-    private ProblemResponse buildError(final HttpStatus status, final String errorDesciption) {
+    private ProblemResponse buildError(final HttpStatus status, final String errorDescription) {
         return ProblemResponse.builder()
                 .status(status.value())
-                .errorDescription(errorDesciption)
+                .errorDescription(errorDescription)
                 .build();
     }
 
