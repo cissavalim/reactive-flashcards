@@ -8,12 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.support.WebExchangeBindException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Component
 public class WebExchangeBindExceptionHandler extends AbstractExceptionHandler<WebExchangeBindException> {
 
     private final MessageSource messageSource;
@@ -25,9 +27,9 @@ public class WebExchangeBindExceptionHandler extends AbstractExceptionHandler<We
 
     @Override
     public Mono<Void> handle(final ServerWebExchange exchange, final WebExchangeBindException exception) {
-        prepareExchange(exchange, HttpStatus.INTERNAL_SERVER_ERROR);
+        prepareExchange(exchange, HttpStatus.BAD_REQUEST);
         return Mono.fromCallable(BaseErrorMessage.GENERIC_BAD_REQUEST::getMessage)
-                .map(message -> buildError(message, HttpStatus.METHOD_NOT_ALLOWED))
+                .map(message -> buildError(message, HttpStatus.BAD_REQUEST))
                 .flatMap(problemResponse -> build(problemResponse, exception))
                 .flatMap(problemResponse -> writeResponse(exchange, problemResponse));
     }

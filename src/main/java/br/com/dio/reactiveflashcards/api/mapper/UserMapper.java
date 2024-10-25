@@ -11,5 +11,7 @@ public interface UserMapper {
 
     UserDocument toDocument(final UserRequest userRequest);
 
+    UserDocument toDocument(final UserRequest userRequest, final String id);
+
     UserResponse toResponse(final UserDocument userDocument);
 }

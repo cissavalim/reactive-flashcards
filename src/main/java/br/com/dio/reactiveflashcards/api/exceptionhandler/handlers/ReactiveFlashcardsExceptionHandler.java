@@ -1,18 +1,15 @@
 package br.com.dio.reactiveflashcards.api.exceptionhandler.handlers;
 
-import br.com.dio.reactiveflashcards.api.controller.response.ProblemResponse;
 import br.com.dio.reactiveflashcards.api.exceptionhandler.AbstractExceptionHandler;
 import br.com.dio.reactiveflashcards.domain.exception.BaseErrorMessage;
 import br.com.dio.reactiveflashcards.domain.exception.ReactiveFlashcardsException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+@Component
 public class ReactiveFlashcardsExceptionHandler extends AbstractExceptionHandler<ReactiveFlashcardsException> {
 
     public ReactiveFlashcardsExceptionHandler(final ObjectMapper mapper) {

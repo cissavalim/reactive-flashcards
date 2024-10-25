@@ -8,10 +8,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Component
 public class ConstraintViolationExceptionHandler extends AbstractExceptionHandler<ConstraintViolationException> {
 
     public ConstraintViolationExceptionHandler(final ObjectMapper mapper) {

@@ -4,9 +4,11 @@ import br.com.dio.reactiveflashcards.api.exceptionhandler.AbstractExceptionHandl
 import br.com.dio.reactiveflashcards.domain.exception.BaseErrorMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+@Component
 public class GenericExceptionHandler extends AbstractExceptionHandler<Exception> {
 
     public GenericExceptionHandler(final ObjectMapper mapper) {
