@@ -16,6 +16,6 @@ public class UserService {
 
     public Mono<UserDocument> save(final UserDocument userDocument) {
         return userRepository.save(userDocument)
-                .doFirst(() -> log.info("trying-to-save-user={}", userDocument.id()));
+                .doFirst(() -> log.info("trying-to-save-user={}", userDocument.name()));
     }
 }
