@@ -8,5 +8,6 @@ public record ErrorFieldResponse(
 ) {
 
     @Builder(toBuilder = true)
-    public ErrorFieldResponse {}
+    public ErrorFieldResponse {
+    }
 }

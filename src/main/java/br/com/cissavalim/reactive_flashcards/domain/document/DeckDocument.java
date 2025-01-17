@@ -26,5 +26,6 @@ public record DeckDocument(
 ) {
 
     @Builder(toBuilder = true)
-    public DeckDocument {}
+    public DeckDocument {
+    }
 }

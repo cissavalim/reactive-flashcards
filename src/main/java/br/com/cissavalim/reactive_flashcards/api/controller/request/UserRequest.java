@@ -16,5 +16,6 @@ public record UserRequest(
 ) {
 
     @Builder(toBuilder = true)
-    public UserRequest {}
+    public UserRequest {
+    }
 }

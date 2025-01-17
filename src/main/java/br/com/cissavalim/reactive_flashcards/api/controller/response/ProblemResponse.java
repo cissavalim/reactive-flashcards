@@ -15,5 +15,6 @@ public record ProblemResponse(
 ) {
 
     @Builder(toBuilder = true)
-    public ProblemResponse {}
+    public ProblemResponse {
+    }
 }

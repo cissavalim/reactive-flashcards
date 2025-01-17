@@ -24,5 +24,6 @@ public record UserDocument(
 ) {
 
     @Builder(toBuilder = true)
-    public UserDocument {}
+    public UserDocument {
+    }
 }

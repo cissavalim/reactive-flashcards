@@ -10,5 +10,6 @@ public record StudyDeck(
 ) {
 
     @Builder(toBuilder = true)
-    public StudyDeck {}
+    public StudyDeck {
+    }
 }

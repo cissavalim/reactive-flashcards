@@ -9,5 +9,6 @@ public record UserResponse(
 ) {
 
     @Builder(toBuilder = true)
-    public UserResponse {}
+    public UserResponse {
+    }
 }

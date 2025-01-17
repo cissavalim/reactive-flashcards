@@ -8,5 +8,6 @@ public record Card(
 ) {
 
     @Builder(toBuilder = true)
-    public Card {}
+    public Card {
+    }
 }

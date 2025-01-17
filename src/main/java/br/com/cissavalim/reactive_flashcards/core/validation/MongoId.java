@@ -14,6 +14,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {MongoIdValidator.class})
 public @interface MongoId {
     String message() default "{br.com.cissavalim.reactive_flashcards.core.validation.MongoId.message}";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }
