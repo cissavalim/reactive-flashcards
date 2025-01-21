@@ -1,5 +1,6 @@
 package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler;
 
+import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.handlerchain.HandlerChain;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;

@@ -1,10 +1,13 @@
-package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler;
+package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.impl;
 
+import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
 import br.com.cissavalim.reactive_flashcards.api.controller.response.ErrorFieldResponse;
 import br.com.cissavalim.reactive_flashcards.api.controller.response.ProblemResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -14,6 +17,7 @@ import reactor.core.publisher.Mono;
 import static br.com.cissavalim.reactive_flashcards.domain.exception.BaseErrorMessage.GENERIC_BAD_REQUEST;
 
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class ConstraintViolationHandler extends AbstractExceptionHandler {
 
     public ConstraintViolationHandler(final ObjectMapper mapper) {
@@ -21,7 +25,7 @@ public class ConstraintViolationHandler extends AbstractExceptionHandler {
     }
 
     @Override
-    Mono<Void> handleException(final ServerWebExchange exchange, final Throwable ex) {
+    public Mono<Void> handleException(final ServerWebExchange exchange, final Throwable ex) {
         return Mono.fromCallable(() -> {
             prepareExchange(exchange, HttpStatus.BAD_REQUEST);
             return GENERIC_BAD_REQUEST.getMessage();
@@ -31,7 +35,7 @@ public class ConstraintViolationHandler extends AbstractExceptionHandler {
     }
 
     @Override
-    boolean canHandle(final Throwable ex) {
+    public boolean canHandle(final Throwable ex) {
         return ex instanceof ConstraintViolationException;
     }
 

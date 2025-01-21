@@ -1,10 +1,13 @@
-package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler;
+package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.impl;
 
+import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
 import br.com.cissavalim.reactive_flashcards.api.controller.response.ErrorFieldResponse;
 import br.com.cissavalim.reactive_flashcards.api.controller.response.ProblemResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
@@ -16,6 +19,7 @@ import reactor.core.publisher.Mono;
 import static br.com.cissavalim.reactive_flashcards.domain.exception.BaseErrorMessage.GENERIC_BAD_REQUEST;
 
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class WebExchangeHandler extends AbstractExceptionHandler {
 
     private final MessageSource messageSource;
@@ -26,7 +30,7 @@ public class WebExchangeHandler extends AbstractExceptionHandler {
     }
 
     @Override
-    Mono<Void> handleException(final ServerWebExchange exchange, final Throwable ex) {
+    public Mono<Void> handleException(final ServerWebExchange exchange, final Throwable ex) {
         return Mono.fromCallable(() -> {
                     prepareExchange(exchange, HttpStatus.BAD_REQUEST);
                     return GENERIC_BAD_REQUEST.getMessage();
@@ -36,7 +40,7 @@ public class WebExchangeHandler extends AbstractExceptionHandler {
     }
 
     @Override
-    boolean canHandle(final Throwable ex) {
+    public boolean canHandle(final Throwable ex) {
         return ex instanceof WebExchangeBindException;
     }
 
@@ -50,3 +54,5 @@ public class WebExchangeHandler extends AbstractExceptionHandler {
                 .map(problems -> response.toBuilder().fields(problems).build());
     }
 }
+
+

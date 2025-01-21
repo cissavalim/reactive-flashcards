@@ -15,9 +15,9 @@ public abstract class AbstractExceptionHandler {
 
     private final ObjectMapper mapper;
 
-    abstract Mono<Void> handleException(final ServerWebExchange exchange, final Throwable ex);
+    public abstract Mono<Void> handleException(final ServerWebExchange exchange, final Throwable ex);
 
-    abstract boolean canHandle(final Throwable ex);
+    public abstract boolean canHandle(final Throwable ex);
 
     public Mono<Void> writeResponse(final ServerWebExchange exchange, final ProblemResponse response) {
         return exchange.getResponse()
