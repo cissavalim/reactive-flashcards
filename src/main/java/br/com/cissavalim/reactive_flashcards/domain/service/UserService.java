@@ -28,15 +28,15 @@ public class UserService {
                 .filter(Objects::isNull)
                 .switchIfEmpty(Mono.defer(() -> Mono.error(new EmailAlreadyRegisteredException(
                         EMAIL_ALREADY_REGISTERED.params(userDocument.email()).getMessage()))))
-                .onErrorResume(error -> userRepository.save(userDocument));
+                .onErrorResume(NotFoundException.class, error -> userRepository.save(userDocument));
     }
 
     private Mono<Void> verifyEmail(final UserDocument userDocument) {
         return userQueryService.findByEmail(userDocument.email())
-                .onErrorResume(NotFoundException.class, error -> Mono.empty())
                 .filter(stored -> stored.id().equals(userDocument.id()))
                 .switchIfEmpty(Mono.defer(() -> Mono.error(new EmailAlreadyRegisteredException(
                         EMAIL_ALREADY_REGISTERED.params(userDocument.email()).getMessage()))))
+                .onErrorResume(NotFoundException.class, error -> Mono.empty())
                 .then();
     }
 
