@@ -3,7 +3,6 @@ package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.im
 import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
 import br.com.cissavalim.reactive_flashcards.domain.exception.ReactiveFlashcardsException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import reactor.core.publisher.Mono;
 import static br.com.cissavalim.reactive_flashcards.domain.exception.BaseErrorMessage.GENERIC_EXCEPTION;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(6)
 public class ReactiveFlashcardsHandler extends AbstractExceptionHandler {
 
     public ReactiveFlashcardsHandler(final ObjectMapper mapper) {

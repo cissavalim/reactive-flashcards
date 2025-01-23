@@ -6,7 +6,6 @@ import br.com.cissavalim.reactive_flashcards.api.controller.response.ProblemResp
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ import reactor.core.publisher.Mono;
 import static br.com.cissavalim.reactive_flashcards.domain.exception.BaseErrorMessage.GENERIC_BAD_REQUEST;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(4)
 public class WebExchangeHandler extends AbstractExceptionHandler {
 
     private final MessageSource messageSource;

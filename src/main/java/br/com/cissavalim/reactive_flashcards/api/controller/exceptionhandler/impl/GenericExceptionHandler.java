@@ -2,6 +2,7 @@ package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.im
 
 import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -10,6 +11,7 @@ import reactor.core.publisher.Mono;
 import static br.com.cissavalim.reactive_flashcards.domain.exception.BaseErrorMessage.GENERIC_EXCEPTION;
 
 @Component
+@Order(7)
 public class GenericExceptionHandler extends AbstractExceptionHandler {
 
     public GenericExceptionHandler(final ObjectMapper mapper) {

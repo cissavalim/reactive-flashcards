@@ -3,7 +3,6 @@ package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.im
 import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
 import br.com.cissavalim.reactive_flashcards.domain.exception.NotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(2)
 public class NotFoundHandler extends AbstractExceptionHandler {
 
     public NotFoundHandler(final ObjectMapper mapper) {

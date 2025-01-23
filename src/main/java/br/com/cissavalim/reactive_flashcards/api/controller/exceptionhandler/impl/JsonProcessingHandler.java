@@ -3,7 +3,6 @@ package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.im
 import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import reactor.core.publisher.Mono;
 import static br.com.cissavalim.reactive_flashcards.domain.exception.BaseErrorMessage.GENERIC_METHOD_NOT_ALLOWED;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(8)
 public class JsonProcessingHandler extends AbstractExceptionHandler {
 
     public JsonProcessingHandler(final ObjectMapper mapper) {

@@ -6,7 +6,6 @@ import br.com.cissavalim.reactive_flashcards.api.controller.response.ProblemResp
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,7 @@ import reactor.core.publisher.Mono;
 import static br.com.cissavalim.reactive_flashcards.domain.exception.BaseErrorMessage.GENERIC_BAD_REQUEST;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(3)
 public class ConstraintViolationHandler extends AbstractExceptionHandler {
 
     public ConstraintViolationHandler(final ObjectMapper mapper) {

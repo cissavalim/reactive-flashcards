@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -40,5 +41,20 @@ public class UserController {
         return userQueryService.findById(id)
                 .doFirst(() -> log.info("find-user-by-id={}", id))
                 .map(userMapper::toResponse);
+    }
+
+    @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE, value = "{id}")
+    public Mono<UserResponse> update(@PathVariable @Valid @MongoId(message = "{userController.id}") final String id,
+                                     @RequestBody @Valid final UserRequest request) {
+        return userService.update(userMapper.toDocument(request, id))
+                .doFirst(() -> log.info("updating-user-with-id={}", id))
+                .map(userMapper::toResponse);
+    }
+
+    @DeleteMapping(value = "{id}")
+    @ResponseStatus(NO_CONTENT)
+    public Mono<Void> delete(@PathVariable @Valid @MongoId(message = "{userController.id}") final String id) {
+        return userService.delete(id)
+                .doFirst(() -> log.info("deleting-user-with-id={}", id));
     }
 }
