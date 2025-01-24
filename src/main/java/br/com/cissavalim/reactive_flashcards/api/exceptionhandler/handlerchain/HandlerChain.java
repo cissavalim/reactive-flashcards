@@ -1,6 +1,6 @@
-package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.handlerchain;
+package br.com.cissavalim.reactive_flashcards.api.exceptionhandler.handlerchain;
 
-import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
+import br.com.cissavalim.reactive_flashcards.api.exceptionhandler.AbstractExceptionHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;

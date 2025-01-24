@@ -1,6 +1,6 @@
-package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.impl;
+package br.com.cissavalim.reactive_flashcards.api.exceptionhandler.impl;
 
-import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
+import br.com.cissavalim.reactive_flashcards.api.exceptionhandler.AbstractExceptionHandler;
 import br.com.cissavalim.reactive_flashcards.api.controller.response.ErrorFieldResponse;
 import br.com.cissavalim.reactive_flashcards.api.controller.response.ProblemResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;

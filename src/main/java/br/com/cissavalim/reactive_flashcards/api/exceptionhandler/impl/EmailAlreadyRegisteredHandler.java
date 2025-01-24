@@ -1,6 +1,6 @@
-package br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.impl;
+package br.com.cissavalim.reactive_flashcards.api.exceptionhandler.impl;
 
-import br.com.cissavalim.reactive_flashcards.api.controller.exceptionhandler.AbstractExceptionHandler;
+import br.com.cissavalim.reactive_flashcards.api.exceptionhandler.AbstractExceptionHandler;
 import br.com.cissavalim.reactive_flashcards.domain.exception.EmailAlreadyRegisteredException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.annotation.Order;
@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
-import static br.com.cissavalim.reactive_flashcards.domain.exception.BaseErrorMessage.EMAIL_ALREADY_REGISTERED;
 
 @Component
 @Order(0)
