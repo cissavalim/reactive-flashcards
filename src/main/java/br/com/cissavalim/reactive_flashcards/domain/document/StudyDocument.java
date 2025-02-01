@@ -17,6 +17,7 @@ public record StudyDocument(
         @Id
         String id,
         String userId,
+        Boolean complete,
         StudyDeck studyDeck,
         List<Question> questions,
         @CreatedDate
@@ -54,6 +55,7 @@ public record StudyDocument(
         private List<Question> questions = new ArrayList<>();
         private OffsetDateTime createdAt;
         private OffsetDateTime updatedAt;
+        private Boolean complete = false;
 
         public StudyDocumentBuilder id(final String id) {
             this.id = id;
@@ -62,6 +64,11 @@ public record StudyDocument(
 
         public StudyDocumentBuilder userId(final String userId) {
             this.userId = userId;
+            return this;
+        }
+
+        public StudyDocumentBuilder complete() {
+            this.complete = true;
             return this;
         }
 
@@ -91,7 +98,7 @@ public record StudyDocument(
         }
 
         public StudyDocument build() {
-            return new StudyDocument(id, userId, studyDeck, questions, createdAt, updatedAt);
+            return new StudyDocument(id, userId, complete, studyDeck, questions, createdAt, updatedAt);
         }
 
     }

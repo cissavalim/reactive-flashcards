@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 public record Question(
         String asked,
@@ -12,6 +13,10 @@ public record Question(
         OffsetDateTime answeredAt,
         String expected
 ) {
+
+    public Boolean isAnswered() {
+        return Objects.isNull(answeredAt);
+    }
 
     public static QuestionBuilder builder() {
         return new QuestionBuilder();

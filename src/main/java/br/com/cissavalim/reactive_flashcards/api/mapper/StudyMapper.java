@@ -18,5 +18,5 @@ public interface StudyMapper {
     @Mapping(target = "updatedAt", ignore = true)
     StudyDocument toDocument(final StudyRequest studyRequest);
 
-    QuestionResponse toResponse(final Question question);
+    QuestionResponse toResponse(final Question question, final String id);
 }

@@ -10,12 +10,16 @@ import java.util.ResourceBundle;
 public class BaseErrorMessage {
 
     public static final BaseErrorMessage GENERIC_EXCEPTION = new BaseErrorMessage("generic");
-    public static final BaseErrorMessage GENERIC_NOT_FOUND = new BaseErrorMessage("generic.notFound");
     public static final BaseErrorMessage GENERIC_METHOD_NOT_ALLOWED = new BaseErrorMessage("generic.methodNotAllowed");
     public static final BaseErrorMessage GENERIC_BAD_REQUEST = new BaseErrorMessage("generic.badRequest");
     public static final BaseErrorMessage USER_NOT_FOUND = new BaseErrorMessage("user.notFound");
     public static final BaseErrorMessage DECK_NOT_FOUND = new BaseErrorMessage("deck.notFound");
     public static final BaseErrorMessage EMAIL_ALREADY_REGISTERED = new BaseErrorMessage("email.alreadyRegistered");
+    public static final BaseErrorMessage STUDY_DECK_NOT_FOUND = new BaseErrorMessage("studyDeck.notFound");
+    public static final BaseErrorMessage STUDY_NOT_FOUND = new BaseErrorMessage("study.notFound");
+    public static final BaseErrorMessage DECK_IN_STUDY = new BaseErrorMessage("study.DeckInStudy");
+    public static final BaseErrorMessage STUDY_QUESTION_NOT_FOUND = new BaseErrorMessage("studyQuestion.notFound");
+
     private final String DEFAULT_RESOURCE = "messages";
 
     private final String key;

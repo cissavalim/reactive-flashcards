@@ -5,6 +5,7 @@ import lombok.Builder;
 import java.time.OffsetDateTime;
 
 public record QuestionResponse(
+        String id,
         String asked,
         OffsetDateTime askedAt
 ) {
