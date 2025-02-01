@@ -6,9 +6,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,10 +20,8 @@ public record StudyDocument(
         StudyDeck studyDeck,
         List<Question> questions,
         @CreatedDate
-        @Field("created_at")
         OffsetDateTime createdAt,
         @LastModifiedDate
-        @Field("updated_at")
         OffsetDateTime updatedAt
 ) {
     public static StudyDocumentBuilder builder() {
@@ -53,7 +51,7 @@ public record StudyDocument(
         private String id;
         private String userId;
         private StudyDeck studyDeck;
-        private List<Question> questions;
+        private List<Question> questions = new ArrayList<>();
         private OffsetDateTime createdAt;
         private OffsetDateTime updatedAt;
 
