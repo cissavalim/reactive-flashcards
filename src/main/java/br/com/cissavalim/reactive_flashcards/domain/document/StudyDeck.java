@@ -3,6 +3,7 @@ package br.com.cissavalim.reactive_flashcards.domain.document;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public record StudyDeck(
@@ -24,7 +25,7 @@ public record StudyDeck(
     @AllArgsConstructor
     public static class StudyDeckBuilder {
         private String deckId;
-        private Set<StudyCard> cards;
+        private Set<StudyCard> cards = new HashSet<>();
 
         public StudyDeckBuilder deckId(final String deckId) {
             this.deckId = deckId;

@@ -1,6 +1,8 @@
 package br.com.cissavalim.reactive_flashcards.api.controller;
 
+import br.com.cissavalim.reactive_flashcards.api.controller.request.AnswerQuestionRequest;
 import br.com.cissavalim.reactive_flashcards.api.controller.request.StudyRequest;
+import br.com.cissavalim.reactive_flashcards.api.controller.response.AnswerQuestionResponse;
 import br.com.cissavalim.reactive_flashcards.api.controller.response.QuestionResponse;
 import br.com.cissavalim.reactive_flashcards.api.mapper.StudyMapper;
 import br.com.cissavalim.reactive_flashcards.core.validation.MongoId;
@@ -40,5 +42,13 @@ public class StudyController {
         return studyQueryService.getLastPendingQuestion(id)
                 .doFirst(() -> log.info("getting-current-question"))
                 .map(question -> studyMapper.toResponse(question, id));
+    }
+
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE, value = "{id}/answer")
+    public Mono<AnswerQuestionResponse> answer(@Valid @PathVariable @MongoId(message = "{studyController.id}") final String id,
+                                               @RequestBody @Valid final AnswerQuestionRequest request) {
+        return studyService.answer(id, request.answer())
+                .doFirst(() -> log.info("answering-question-with-study-id={}", id))
+                .map(document -> studyMapper.toResponse(document.getLastAnsweredQuestion()));
     }
 }

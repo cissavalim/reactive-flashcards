@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,19 +31,20 @@ public record StudyDocument(
     }
 
     public StudyDocumentBuilder toBuilder() {
-        return new StudyDocumentBuilder()
-                .id(this.id)
-                .userId(this.userId)
-                .studyDeck(this.studyDeck)
-                .questions(this.questions)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt);
+        return new StudyDocumentBuilder(id, userId, studyDeck, questions, createdAt, updatedAt);
     }
 
     public Question getLastPendingQuestion() {
         return questions.stream()
                 .filter(question -> Objects.isNull(question.answeredAt()))
                 .findFirst()
+                .orElseThrow();
+    }
+
+    public Question getLastAnsweredQuestion() {
+        return questions.stream()
+                .filter(question -> Objects.nonNull(question.answeredAt()))
+                .max(Comparator.comparing(Question::answeredAt))
                 .orElseThrow();
     }
 
@@ -55,7 +57,6 @@ public record StudyDocument(
         private List<Question> questions = new ArrayList<>();
         private OffsetDateTime createdAt;
         private OffsetDateTime updatedAt;
-        private Boolean complete = false;
 
         public StudyDocumentBuilder id(final String id) {
             this.id = id;
@@ -64,11 +65,6 @@ public record StudyDocument(
 
         public StudyDocumentBuilder userId(final String userId) {
             this.userId = userId;
-            return this;
-        }
-
-        public StudyDocumentBuilder complete() {
-            this.complete = true;
             return this;
         }
 
@@ -98,6 +94,8 @@ public record StudyDocument(
         }
 
         public StudyDocument build() {
+            var rightQuestions = questions.stream().filter(Question::isCorrect).toList();
+            var complete = rightQuestions.size() == studyDeck.cards().size();
             return new StudyDocument(id, userId, complete, studyDeck, questions, createdAt, updatedAt);
         }
 

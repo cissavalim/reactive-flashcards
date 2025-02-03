@@ -1,6 +1,7 @@
 package br.com.cissavalim.reactive_flashcards.api.mapper;
 
 import br.com.cissavalim.reactive_flashcards.api.controller.request.StudyRequest;
+import br.com.cissavalim.reactive_flashcards.api.controller.response.AnswerQuestionResponse;
 import br.com.cissavalim.reactive_flashcards.api.controller.response.QuestionResponse;
 import br.com.cissavalim.reactive_flashcards.domain.document.Question;
 import br.com.cissavalim.reactive_flashcards.domain.document.StudyDocument;
@@ -14,9 +15,12 @@ public interface StudyMapper {
     @Mapping(target = "studyDeck.deckId", source = "deckId")
     @Mapping(target = "studyDeck.cards", ignore = true)
     @Mapping(target = "questions", ignore = true)
+    @Mapping(target = "question", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    StudyDocument toDocument(final StudyRequest studyRequest);
+    StudyDocument toDocument(final StudyRequest request);
 
     QuestionResponse toResponse(final Question question, final String id);
+
+    AnswerQuestionResponse toResponse(final Question question);
 }
