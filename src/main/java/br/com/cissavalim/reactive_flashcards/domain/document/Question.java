@@ -24,11 +24,11 @@ public record Question(
     }
 
     public Boolean isNotAnswered() {
-        return !isAnswered();
+        return Objects.isNull(answeredAt);
     }
 
     public Boolean isCorrect() {
-        return isAnswered() && asked.equalsIgnoreCase(expected);
+        return isAnswered() && answered.equals(expected);
     }
 
     public QuestionBuilder toBuilder() {

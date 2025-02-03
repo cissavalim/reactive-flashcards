@@ -19,12 +19,8 @@ public record QuestionDTO(
         return Objects.nonNull(answeredAt);
     }
 
-    public Boolean isNotAnswered() {
-        return !isAnswered();
-    }
-
     public Boolean isCorrect() {
-        return isAnswered() && asked.equalsIgnoreCase(expected);
+        return isAnswered() && answered.equals(expected);
     }
 
     public static QuestionDTOBuilder builder() {
