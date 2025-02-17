@@ -4,3 +4,19 @@ spring:
   data:
     mongodb:
       uri: mongodb://reactive-flashcards:reactive-flashcards@db:27017/reactive-flashcards?authSource=admin
+  mail:
+    host: mailcatcher
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          port: 25
+
+reactive-flashcards:
+  mail:
+    sender: "Reactive Flashcards <noreply@reactiveflashcards.com.br>"
+
+retry-config:
+  max-retries: 3
+  min-duration: 1

@@ -31,6 +31,8 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
     implementation 'org.apache.commons:commons-lang3'
     implementation 'org.apache.commons:commons-collections4:4.4'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 
     compileOnly 'org.projectlombok:lombok'
 
